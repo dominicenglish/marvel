@@ -1,5 +1,12 @@
+html, body, #root { height: 100%;}
+a { text-decoration: none; color: inherit; }
+
 .App {
   text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .App-logo {
@@ -25,4 +32,95 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+.MediaPreviewContainer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.MediaPreviewContainer .MediaPreview {
+  flex-basis: 140px;
+  margin: 5px;
+}
+
+.MediaPreviewContainer .MediaPreview_small {
+  flex-basis: 80px;
+  margin: 5px;
+}
+
+.MediaPreview {
+  display: flex;
+  flex-direction: column;
+  flex-basis: content;
+  align-items: center;
+}
+
+.MediaPreview_small img {
+  border-radius: 50%;
+}
+
+.MediaPreview img {
+  max-width: 100%;
+}
+
+.MediaPreview h3 {
+  font-size: 14px;
+}
+
+.Page {
+  display: flex;
+  flex-direction: column;
+}
+
+.Slat {
+  display: flex;
+  justify-content: center;
+}
+
+.Slat_inner {
+  max-width: 1200px;
+}
+
+.DetailView {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.DetailView_cover, .DetailView_info {
+  padding: 20px;
+  flex-basis: 50%;
+  flex-shrink: 1;
+}
+
+.DetailView_cover img {
+  width: 100%;
+}
+
+.Footer {
+  background: #151515;
+  color: #ddd;
+  padding: 15px;
+}
+
+.darkBackground {
+  background-color: #333;
+  color: #eee;
+}
+
+.hoverScale {
+  transition: 80ms ease;
+}
+
+.hoverScale:hover {
+  transform: scale(1.1);
+}
+
+@media screen and (max-device-width: 600px) {
+  .DetailView {
+    flex-direction: column;
+  }
 }
