@@ -5,7 +5,8 @@ A sample application using the [Marvel Comic API](https://developer.marvel.com/)
 ## Setup
 This application makes use of the [Marvel Comic API](https://developer.marvel.com/) and requires an API key. You can sign up for a free API key and the link above.
 
-You must then place your API key in the /src/config.js file in the provided place
+- Make sure you add a 'localhost' referrer to your [list of authorised referrers](https://developer.marvel.com/account)
+- You must then place your public API key in the /src/config.js file in the provided place
 
 ## Observations
 While the current application is functional there are a number of changes
@@ -13,7 +14,9 @@ I would like to make to increase maintainability of the project.
 - Test suites particularly for Action Creators, Reducers and Selectors
 - Plenty of good candidates for refactoring. Action creators in particular have
 quite a lot of repetitive boilerplate.
-- Interface updates. The user interface is in a very basic state at the moment.
+- Interface updates. The user interface is obviously in a very basic state at the moment.
+- General error handling. Limited handling of network related errors. Limited
+feedback to users when things go wrong (or when the api has missing data)
 
 ## Available Scripts
 
