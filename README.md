@@ -1,3 +1,7 @@
+# Marvel Explorer
+
+A sample application using the [Marvel Comic API](https://developer.marvel.com/)
+
 ## Available Scripts
 
 In the project directory, you can run:
