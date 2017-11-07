@@ -2,6 +2,11 @@
 
 A sample application using the [Marvel Comic API](https://developer.marvel.com/)
 
+## Setup
+This application makes use of the [Marvel Comic API](https://developer.marvel.com/) and requires an API key. You can sign up for a free API key and the link above.
+
+You must then place your API key in the /src/config.js file in the provided place
+
 ## Observations
 While the current application is functional there are a number of changes
 I would like to make to increase maintainability of the project.
