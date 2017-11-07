@@ -1,37 +1,60 @@
 html, body, #root { height: 100%;}
+html { background-color: #333; }
 a { text-decoration: none; color: inherit; }
+::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar
+{
+	width: 10px;
+	background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb
+{
+	background-color: #999;
+}
 
 .App {
   text-align: center;
-  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
-}
-
-.App-header {
+.Header {
   background-color: #222;
-  height: 150px;
+  height: 65px;
   padding: 20px;
   color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.App-title {
+.Header_title {
+  margin: 0 20px;
   font-size: 1.5em;
 }
 
-.App-intro {
-  font-size: large;
+.MenuSearch {
+  padding-top: 4px;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.Loading img {
+  width: 50px;
+  height: 50px;
+}
+
+.Content {
+  min-height: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .MediaPreviewContainer {
@@ -71,6 +94,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 .Page {
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
 }
@@ -84,10 +108,34 @@ a { text-decoration: none; color: inherit; }
   max-width: 1200px;
 }
 
+.SubSection {
+  padding: 0 20px 20px 20px;
+}
+
+.SubSection h2 {
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+
+.Button {
+  padding: 10px 15px;
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #eee;
+  border: none;
+  font-weight: 600;
+}
+
+.TitleLayout {
+  padding: 10px 0;
+  border-bottom: 1px solid #444;
+}
+
 .DetailView {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  align-items: center;
 }
 
 .DetailView_cover, .DetailView_info {
@@ -98,6 +146,46 @@ a { text-decoration: none; color: inherit; }
 
 .DetailView_cover img {
   width: 100%;
+  box-shadow: 3px 3px 1px 0px #222;
+}
+
+.DetailView_info {
+  margin: 20px;
+  max-height: 700px;
+  overflow: auto;
+  box-shadow: 2px 2px 4px 2px #222;
+}
+
+.ComicView {
+  padding: 40px 20px;
+}
+
+.Search {
+
+}
+
+.Search input, .Search button {
+  padding: 10px 15px;
+  font-size: 24px;
+  font-weight: 600;
+  border: none;
+}
+
+.Search input {
+  width: 200px;
+  background: #222;
+  color: #eee;
+}
+
+.Search button {
+  background: #555;
+  color: #eee;
+}
+
+.SearchResults {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .Footer {
@@ -106,9 +194,36 @@ a { text-decoration: none; color: inherit; }
   padding: 15px;
 }
 
-.darkBackground {
+.bg_lightGrey {
+  background-color: #eee;
+  color: #333;
+}
+
+.bg_darkestGrey {
+  background-color: #222;
+  color: #ddd;
+}
+
+.bg_darkGrey {
   background-color: #333;
   color: #eee;
+}
+
+.bg_mediumGrey {
+  background-color: #555;
+  color: #dfdfdf;
+}
+
+.bg_darkGreyGradient {
+  background: #444444;
+  background: -moz-linear-gradient(-45deg, #444444 0%, #333333 100%);
+  background: -webkit-linear-gradient(-45deg, #444444 0%,#333333 100%);
+  background: linear-gradient(135deg, #444444 0%,#333333 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#444444', endColorstr='#333333',GradientType=1 );
+}
+
+.padding_20 {
+  padding: 20px;
 }
 
 .hoverScale {
@@ -119,8 +234,25 @@ a { text-decoration: none; color: inherit; }
   transform: scale(1.1);
 }
 
+@keyframes rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.rotating {
+  animation: rotating 2s linear infinite;
+}
+
 @media screen and (max-device-width: 600px) {
   .DetailView {
     flex-direction: column;
+  }
+
+  .DetailView_info {
+    margin: 0px;
+    max-height: none;
   }
 }

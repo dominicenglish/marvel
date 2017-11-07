@@ -6,8 +6,10 @@ export const  FETCH                   = 'FETCH',
               CHARACTERS_GET          = 'CHARACTERS_GET',
               CHARACTERS_GET_SUCCESS  = 'CHARACTERS_GET_SUCCESS',
               CHARACTERS_GET_FAIL     = 'CHARACTERS_GET_FAIL',
+              CHARACTER_COMICS_GET  = 'CHARACTER_COMICS_GET',
               CHARACTER_COMICS_GET_SUCCESS  = 'CHARACTER_COMICS_GET_SUCCESS',
               CHARACTER_COMICS_GET_FAIL     = 'CHARACTER_COMICS_GET_FAIL',
+              CHARACTER_SERIES_GET  = 'CHARACTER_SERIES_GET',
               CHARACTER_SERIES_GET_SUCCESS  = 'CHARACTER_SERIES_GET_SUCCESS',
               CHARACTER_SERIES_GET_FAIL     = 'CHARACTER_SERIES_GET_FAIL',
               COMICS_GET              = 'COMICS_GET',
@@ -16,122 +18,244 @@ export const  FETCH                   = 'FETCH',
               COMIC_GET               = 'COMIC_GET',
               COMIC_GET_SUCCESS       = 'COMIC_GET_SUCCESS',
               COMIC_GET_FAIL          = 'COMIC_GET_FAIL',
+              COMIC_CHARACTERS_GET               = 'COMIC_CHARACTERS_GET',
+              COMIC_CHARACTERS_GET_SUCCESS       = 'COMIC_CHARACTERS_GET_SUCCESS',
+              COMIC_CHARACTERS_GET_FAIL          = 'COMIC_CHARACTERS_GET_FAIL',
+              COMIC_CREATORS_GET               = 'COMIC_CREATORS_GET',
+              COMIC_CREATORS_GET_SUCCESS       = 'COMIC_CREATORS_GET_SUCCESS',
+              COMIC_CREATORS_GET_FAIL          = 'COMIC_CREATORS_GET_FAIL',
+              CREATORS_GET    = 'CREATORS_GET',
               CREATORS_GET_SUCCESS    = 'CREATORS_GET_SUCCESS',
               CREATORS_GET_FAIL       = 'CREATORS_GET_FAIL',
+              CREATOR_GET    = 'CREATOR_GET',
+              CREATOR_GET_SUCCESS    = 'CREATOR_GET_SUCCESS',
+              CREATOR_GET_FAIL       = 'CREATOR_GET_FAIL',
+              CREATOR_COMICS_GET  = 'CREATOR_COMICS_GET',
+              CREATOR_COMICS_GET_SUCCESS  = 'CREATOR_COMICS_GET_SUCCESS',
+              CREATOR_COMICS_GET_FAIL     = 'CREATOR_COMICS_GET_FAIL',
+              CREATOR_SERIES_GET  = 'CREATOR_SERIES_GET',
+              CREATOR_SERIES_GET_SUCCESS  = 'CREATOR_SERIES_GET_SUCCESS',
+              CREATOR_SERIES_GET_FAIL     = 'CREATOR_SERIES_GET_FAIL',
+              SERIES_GET              = 'SERIES_GET',
               SERIES_GET_SUCCESS    = 'SERIES_GET_SUCCESS',
-              SERIES_GET_FAIL       = 'SERIES_GET_FAIL'
+              SERIES_GET_FAIL       = 'SERIES_GET_FAIL',
+              SINGLESERIES_GET              = 'SINGLESERIES_GET',
+              SINGLESERIES_GET_SUCCESS    = 'SINGLESERIES_GET_SUCCESS',
+              SINGLESERIES_GET_FAIL       = 'SINGLESERIES_GET_FAIL',
+              SINGLESERIES_CHARACTERS_GET = 'SINGLESERIES_CHARACTERS_GET',
+              SINGLESERIES_CHARACTERS_GET_SUCCESS = 'SINGLESERIES_CHARACTERS_GET_SUCCESS',
+              SINGLESERIES_CHARACTERS_GET_FAIL = 'SINGLESERIES_CHARACTERS_GET_FAIL',
+              SINGLESERIES_CREATORS_GET = 'SINGLESERIES_CREATORS_GET',
+              SINGLESERIES_CREATORS_GET_SUCCESS = 'SINGLESERIES_CREATORS_GET_SUCCESS',
+              SINGLESERIES_CREATORS_GET_FAIL = 'SINGLESERIES_CREATORS_GET_FAIL',
+              SINGLESERIES_COMICS_GET = 'SINGLESERIES_COMICS_GET',
+              SINGLESERIES_COMICS_GET_SUCCESS = 'SINGLESERIES_COMICS_GET_SUCCESS',
+              SINGLESERIES_COMICS_GET_FAIL = 'SINGLESERIES_COMICS_GET_FAIL',
+              COMIC_SEARCH = 'COMIC_SEARCH',
+              COMIC_SEARCH_SUCCESS = 'COMIC_SEARCH_SUCCESS',
+              COMIC_SEARCH_FAIL = 'COMIC_SEARCH_FAIL',
+              SEARCH_VALUE_SET = 'SEARCH_VALUE_SET',
+              SEARCH_FILTER_SET = 'SEARCH_FILTER_SET'
               ;
 
 export const fetchData = (path, successAction, failAction) => {
   return {type: FETCH, path, successAction, failAction};
 }
 
-export const buildPath = (resource, params={}, id, subresource) => {
-  if (!resource) throw new Error('Expected a resource');
-  const queryString = queryString.stringify(params);
-  let path = `/${resource}`;
-  if (id) {
-    path += `/${id}`;
-  }
-  if (subresource) {
-    path += `/${subresource}`;
-  }
-  path += `?${queryString}`;
-  return path;
-}
-
-export newGetCharacter = (id, params={}) => {
-  {
+export const getCharacters = params => {
+  return {
     type: FETCH,
     types: [CHARACTERS_GET, CHARACTERS_GET_SUCCESS, CHARACTERS_GET_FAIL],
-    path: buildPath('character', params, id),
-    schema: Schemas.CHARACTERS,
+    resource: 'characters',
+    params
+  };
+}
+
+export const getCharacter = (id, params={}) => {
+  return {
+    type: FETCH,
+    types: [CHARACTERS_GET, CHARACTERS_GET_SUCCESS, CHARACTERS_GET_FAIL],
+    resource: 'characters',
     id,
     params
-  }
-}
-
-export const getCharacters = params => {
-  const query = queryString.stringify(params);
-  const endpoint = '/characters';
-  return fetchData(
-    `${endpoint}?${query}`,
-    { type: CHARACTERS_GET_SUCCESS },
-    { type: CHARACTERS_GET_FAIL });
-}
-
-export const getCharacter = id => {
-  const endpoint = `/characters/${id}`;
-  return fetchData(
-    `${endpoint}?`,
-    { type: CHARACTERS_GET_SUCCESS },
-    { type: CHARACTERS_GET_FAIL });
+  };
 }
 
 export const getCharacterSeries = (id, params={contains: 'comic', limit: 40}) => {
-  const query = queryString.stringify(params);
-  const endpoint = `/characters/${id}/series`;
-  return fetchData(`${endpoint}?${query}`,
-  { type: CHARACTER_SERIES_GET_SUCCESS },
-  { type: CHARACTER_SERIES_GET_FAIL });
+  return {
+    type: FETCH,
+    types: [CHARACTER_SERIES_GET, CHARACTER_SERIES_GET_SUCCESS, CHARACTER_SERIES_GET_FAIL],
+    resource: 'characters',
+    subresource: 'series',
+    id,
+    params
+  };
 }
 
 export const getCharacterComics = (id, params={}) => {
   params = { noVariants: true, limit: 20, offset: 0, ...params };
-  const query = queryString.stringify(params);
-  const endpoint = `/characters/${id}/comics`;
-  return fetchData(
-    `${endpoint}?${query}`,
-    { type: CHARACTER_COMICS_GET_SUCCESS, id, params },
-    { type: CHARACTER_COMICS_GET_FAIL, id });
-}
-
-export const getComics = (params={noVariants: true}) => {
-  const query = queryString.stringify(params);
-  const endpoint = '/comics';
-  return fetchData(`${endpoint}?${query}`, COMICS_GET_SUCCESS, COMICS_GET_FAIL);
-}
-
-export const getComic = id => {
-  const endpoint = `/comics/${id}`;
-  return fetchData(`${endpoint}?`, COMIC_GET_SUCCESS, COMIC_GET_FAIL);
-}
-
-export const getComicCharacters = id => {
-  const endpoint = `/comics/${id}/characters`;
-  return fetchData(`${endpoint}?`, CHARACTER_COMICS_GET_SUCCESS, CHARACTER_COMICS_GET_FAIL);
-}
-
-export const getComicCreators = id => {
-  const endpoint = `/comics/${id}/creators`;
-  return fetchData(`${endpoint}?`, CREATORS_GET_SUCCESS, CREATORS_GET_FAIL);
+  return {
+    type: FETCH,
+    types: [CHARACTER_COMICS_GET, CHARACTER_COMICS_GET_SUCCESS, CHARACTER_COMICS_GET_FAIL],
+    resource: 'characters',
+    subresource: 'comics',
+    id,
+    params
+  };
 }
 
 export const getSeries = (params={contains: 'comic'}) => {
-  const query = queryString.stringify(params);
-  const endpoint = `/series`;
-  return fetchData(`${endpoint}?${query}`, SERIES_GET_SUCCESS, SERIES_GET_FAIL);
+  return {
+    type: FETCH,
+    types: [SERIES_GET, SERIES_GET_SUCCESS, SERIES_GET_FAIL],
+    resource: 'series',
+    params
+  };
 }
 
 export const getSingleSeries = id => {
-  const endpoint = `/series/${id}`;
-  return fetchData(`${endpoint}?`, SERIES_GET_SUCCESS, SERIES_GET_FAIL);
+  return {
+    type: FETCH,
+    types: [SINGLESERIES_GET, SINGLESERIES_GET_SUCCESS, SINGLESERIES_GET_FAIL],
+    resource: 'series',
+    id
+  };
 }
 
 export const getSingleSeriesCharacters = (id, params={}) => {
-  const query = queryString.stringify(params);
-  const endpoint = `/series/${id}/characters`;
-  return fetchData(`${endpoint}?${query}`, CHARACTERS_GET_SUCCESS, CHARACTERS_GET_FAIL);
+  return {
+    type: FETCH,
+    types: [SINGLESERIES_CHARACTERS_GET, SINGLESERIES_CHARACTERS_GET_SUCCESS, SINGLESERIES_CHARACTERS_GET_FAIL],
+    resource: 'series',
+    subresource: 'characters',
+    id,
+    params
+  };
 }
 
 export const getSingleSeriesCreators = (id, params={}) => {
-  const query = queryString.stringify(params);
-  const endpoint = `/series/${id}/creators`;
-  return fetchData(`${endpoint}?${query}`, CREATORS_GET_SUCCESS, CREATORS_GET_FAIL);
+  return {
+    type: FETCH,
+    types: [SINGLESERIES_CREATORS_GET, SINGLESERIES_CREATORS_GET_SUCCESS, SINGLESERIES_CREATORS_GET_FAIL],
+    resource: 'series',
+    subresource: 'creators',
+    id,
+    params
+  };
 }
 
 export const getSingleSeriesComics = (id, params={noVariants: true}) => {
-  const query = queryString.stringify(params);
-  const endpoint = `/series/${id}/comics`;
-  return fetchData(`${endpoint}?${query}`, COMICS_GET_SUCCESS, COMICS_GET_FAIL);
+  return {
+    type: FETCH,
+    types: [SINGLESERIES_COMICS_GET, SINGLESERIES_COMICS_GET_SUCCESS, SINGLESERIES_COMICS_GET_FAIL],
+    resource: 'series',
+    subresource: 'comics',
+    id,
+    params
+  };
+}
+
+export const getComics = (params={noVariants: true}) => {
+  return {
+    type: FETCH,
+    types: [COMICS_GET, COMICS_GET_SUCCESS, COMICS_GET_FAIL],
+    resource: 'comics',
+    params
+  };
+}
+
+export const getComic = id => {
+  return {
+    type: FETCH,
+    types: [COMIC_GET, COMIC_GET_SUCCESS, COMIC_GET_FAIL],
+    resource: 'comics',
+    id
+  };
+}
+
+export const getComicCharacters = id => {
+  return {
+    type: FETCH,
+    types: [COMIC_CHARACTERS_GET, COMIC_CHARACTERS_GET_SUCCESS, COMIC_CHARACTERS_GET_FAIL],
+    resource: 'comics',
+    subresource: 'characters',
+    id
+  };
+}
+
+export const getComicCreators = id => {
+  return {
+    type: FETCH,
+    types: [COMIC_CREATORS_GET, COMIC_CREATORS_GET_SUCCESS, COMIC_CREATORS_GET_FAIL],
+    resource: 'comics',
+    subresource: 'creators',
+    id
+  };
+}
+
+export const getCreators = (params={}) => {
+  return {
+    type: FETCH,
+    types: [CREATORS_GET, CREATORS_GET_SUCCESS, CREATORS_GET_FAIL],
+    resource: 'creators',
+    params
+  };
+}
+
+export const getCreator = (id, params={}) => {
+  return {
+    type: FETCH,
+    types: [CREATORS_GET, CREATORS_GET_SUCCESS, CREATORS_GET_FAIL],
+    resource: 'creators',
+    id,
+    params
+  };
+}
+
+export const getCreatorSeries = (id, params={contains: 'comic', limit: 40}) => {
+  return {
+    type: FETCH,
+    types: [CREATOR_SERIES_GET, CREATOR_SERIES_GET_SUCCESS, CREATOR_SERIES_GET_FAIL],
+    resource: 'creators',
+    subresource: 'series',
+    id,
+    params
+  };
+}
+
+export const getCreatorComics = (id, params={}) => {
+  params = { noVariants: true, limit: 20, offset: 0, orderBy: '-onsaleDate', ...params };
+  return {
+    type: FETCH,
+    types: [CREATOR_COMICS_GET, CREATOR_COMICS_GET_SUCCESS, CREATOR_COMICS_GET_FAIL],
+    resource: 'creators',
+    subresource: 'comics',
+    id,
+    params
+  };
+}
+
+export const setCurrentSearch = (searchString) => {
+  return {
+    type: SEARCH_VALUE_SET,
+    searchString
+  };
+}
+
+export const setCurrentSearchFilter = (filter) => {
+  return {
+    type: SEARCH_FILTER_SET,
+    filter
+  };
+}
+
+export const performSearch = (searchString, filter) => {
+  switch (filter) {
+    case 'comics':
+      return getComics({titleStartsWith: searchString});
+    case 'characters':
+      return getCharacters({nameStartsWith: searchString});
+    case 'creators':
+      return getCreators({nameStartsWith: searchString});
+  }
 }

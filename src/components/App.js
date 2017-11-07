@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import { createStore, applyMiddleware, compose  } from 'redux';
 import createSagaMiddleware from 'redux-saga'
 import { Provider } from 'react-redux';
-import rootReducer from './redux/reducers';
-import sagas from './redux/sagas.js';
-import Characters from './Characters.js';
+
+import '../App.css';
+import rootReducer from '../redux/reducers';
+import sagas from '../redux/sagas.js';
 import Character from './Character.js';
-import Series from './Series.js';
 import SingleSeries from './SingleSeries.js';
-import Comics from './Comics.js';
+import Search from './Search.js';
 import Comic from './Comic.js';
+import Creator from './Creator.js';
 import Footer from './Footer.js';
 
 const sagaMiddleware = createSagaMiddleware();
@@ -31,17 +30,21 @@ class App extends Component {
       <BrowserRouter>
         <Provider store={store}>
           <div className="App">
-            <header className="App-header">
-              <h1 className="App-title">Marvel Universe</h1>
+            <header className="Header">
+              <h1 className="Header_title">Marvel Universe</h1>
+              <Link to="/">
+                <div className="MenuSearch">
+                  <i class="fa fa-search fa-lg" aria-hidden="true"></i>
+                </div>
+              </Link>
             </header>
             <section className="Content">
               <Switch>
-                <Route exact path="/characters" component={Characters}/>
                 <Route exact path="/characters/:id" component={Character}/>
-                <Route exact path="/series" component={Series}/>
                 <Route path="/series/:id" component={SingleSeries}/>
-                <Route exact path="/comics" component={Comics}/>
                 <Route path="/comics/:id" component={Comic}/>
+                <Route path="/creators/:id" component={Creator}/>
+                <Route exact path="/" component={Search}/>
               </Switch>
             </section>
             <Footer/>
