@@ -2,6 +2,14 @@
 
 A sample application using the [Marvel Comic API](https://developer.marvel.com/)
 
+## Observations
+While the current application is functional there are a number of changes
+I would like to make to increase maintainability of the project.
+- Test suites particularly for Action Creators, Reducers and Selectors
+- Plenty of good candidates for refactoring. Action creators in particular have
+quite a lot of repetitive boilerplate.
+- Interface updates. The user interface is in a very basic state at the moment.
+
 ## Available Scripts
 
 In the project directory, you can run:
