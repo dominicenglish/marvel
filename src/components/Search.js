@@ -37,6 +37,7 @@ const mapDispatchToProps = {
 class Comics extends Component {
 
   onSearch = input => {
+    alert('should search');
     const { setCurrentSearch, getComics, getCharacters, getCreators } = this.props;
     setCurrentSearch(input);
     getComics({titleStartsWith: input});
@@ -99,9 +100,7 @@ class Comics extends Component {
           <SearchForm onSearch={this.onSearch}/>
         </Slat>
         <Slat className="padding_20">
-
-            {searchResults}
-
+          {searchResults}
         </Slat>
       </div>
     )

@@ -34,7 +34,7 @@ class App extends Component {
               <h1 className="Header_title">Marvel Universe</h1>
               <Link to="/">
                 <div className="MenuSearch">
-                  <i class="fa fa-search fa-lg" aria-hidden="true"></i>
+                  <i className="fa fa-search fa-lg" aria-hidden="true"></i>
                 </div>
               </Link>
             </header>
