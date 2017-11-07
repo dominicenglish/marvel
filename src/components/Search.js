@@ -37,7 +37,6 @@ const mapDispatchToProps = {
 class Comics extends Component {
 
   onSearch = input => {
-    alert('should search');
     const { setCurrentSearch, getComics, getCharacters, getCreators } = this.props;
     setCurrentSearch(input);
     getComics({titleStartsWith: input});

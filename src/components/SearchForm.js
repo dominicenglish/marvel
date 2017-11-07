@@ -3,7 +3,6 @@ import React from 'react';
 export default ({ onSearch }) => {
   let input;
   const onSubmit = e => {
-    alert('submitted');
     onSearch(input.value);
     e.preventDefault();
   }

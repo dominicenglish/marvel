@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default () => (
-  <div class="Loading">
+  <div className="Loading">
     <img className="rotating" src="/spinner-icon.png"/>
   </div>
 );
